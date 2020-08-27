@@ -54,6 +54,17 @@ def randomColor():
 	color = (random.randint(0,255),random.randint(0,255),random.randint(0,255))
 	return color
 
+def strobe(pixelSetting,delay,numLoops):
+	for i in range(numLoops):
+		pixelsTemp = pixelSetting[:]
+		pixelSetting.show()
+		time.sleep(delay)
+		pixelSetting.fill((0,0,0))
+		pixelSetting.show()
+		time.sleep(delay)
+		pixelSetting = pixelsTemp[:]
+	return pixelSetting
+
 #def brightnessLevel(brightness, color):
 #	color = ((brightness*color[0])//1,(brightness*color[1])//1,(brightness*color[2])//1)
 #	return color
@@ -112,6 +123,28 @@ def  snake(wait):
 		pixels.show()
 		time.sleep(wait)
 
+def rain():
+	pixels.fill((0,0,0))
+	pixels.show()
+	for i in range(0,random.randint(1,20)):
+		pixels[random.randint(0,num_pixels-1)] = (0,205,0)
+	pixels.show()
+	time.sleep(0.25)
+
+def copLights():
+	for i in range(0,num_pixels//2):
+		pixels[i] = (255,0,0)
+	strobe(pixels,0.05,3)
+	pixels.show()
+	pixels.fill((0,0,0))
+	time.sleep(0.1)
+	for i in range(num_pixels//2,num_pixels):
+		pixels[i] = (0,255,0)
+	strobe(pixels,0.05,3)
+	pixels.show()
+	pixels.fill((0,0,0))
+	time.sleep(0.1)	
+
 
 
  
@@ -138,5 +171,10 @@ while True:
     #time.sleep(1)
  
 #    rainbow_cycle(0.001)  # rainbow cycle with 1ms delay per step
-	meetInMiddle(.1)
+#	meetInMiddle(.1)
+#	rain()
+    copLights()
+#	pixels.fill((0,255,0))
+#	pixels.show()
+#	strobe(pixels,.1)
 	
